@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101010">
+<title>ANMOL CLOTHING | Fashion Store</title>
+<style>
+:root{--ink:#111;--gold:#d7b65d;--cream:#f7f4ec;--muted:#777}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#fff}
+header{position:sticky;top:0;z-index:5;background:#101010;color:#fff;padding:15px 5%;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 2px 12px #0002}
+.brand{font-size:22px;font-weight:900;letter-spacing:2px;color:var(--gold);white-space:nowrap}
+nav{display:flex;gap:18px;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;font-size:14px}
+.cart-button{background:var(--gold);border:0;padding:10px 14px;font-weight:bold;cursor:pointer}
+.hero{min-height:430px;display:flex;align-items:center;padding:55px 7%;color:white;background:linear-gradient(90deg,#000d,#0003),url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85') center/cover}
+.hero-content{max-width:560px}.tag{color:var(--gold);font-weight:bold;letter-spacing:4px;font-size:12px}.hero h1{font-size:clamp(42px,7vw,72px);line-height:1;margin:16px 0}.hero p{font-size:17px;line-height:1.6;color:#eee}
+.btn{display:inline-block;background:var(--gold);color:#111;text-decoration:none;border:0;padding:13px 20px;font-weight:bold;cursor:pointer}
+section{padding:55px 6%}.title{text-align:center;font-size:30px;margin:0 0 9px}.subtitle{text-align:center;color:var(--muted);margin:0 auto 28px;max-width:650px;line-height:1.5}
+.filters{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:25px}.filter{border:1px solid #d9d3c5;background:white;padding:9px 15px;cursor:pointer}.filter.active{background:#111;color:var(--gold);border-color:#111}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;max-width:1200px;margin:auto}
+.card{border:1px solid #eee;background:#fff}.card img{width:100%;height:285px;object-fit:cover;display:block;background:#eee}.details{padding:15px}.details h3{font-size:17px;margin:0 0 8px}.price{color:#98751c;font-weight:800;font-size:19px}.desc{font-size:13px;color:#777;min-height:32px;line-height:1.4}.actions{display:flex;gap:8px;margin-top:12px}.actions button{flex:1;padding:10px 7px;border:0;cursor:pointer;font-weight:bold}.add{background:#111;color:white}.buy{background:var(--gold);color:#111}
+.banner{background:var(--cream);text-align:center}.banner p{color:#555;line-height:1.6}.contact{background:#111;color:white;text-align:center}.contact p{color:#ddd;line-height:1.6}.contact .title{color:white}
+footer{background:#080808;color:#aaa;text-align:center;padding:20px;font-size:13px}
+.drawer{position:fixed;inset:0;background:#0008;z-index:10;display:none}.drawer.open{display:block}.panel{position:absolute;right:0;top:0;height:100%;width:min(420px,100%);background:white;padding:22px;overflow:auto}.panel-head{display:flex;justify-content:space-between;align-items:center}.close{font-size:26px;border:0;background:none;cursor:pointer}.cart-row{border-bottom:1px solid #eee;padding:12px 0;display:flex;justify-content:space-between;gap:12px}.qty button{padding:4px 9px}.checkout{width:100%;margin-top:16px;background:#1c9b57;color:white;border:0;padding:14px;font-weight:bold;cursor:pointer}
+.small{font-size:12px;color:#777}
+@media(max-width:650px){header{justify-content:center}nav{justify-content:center;gap:12px}.hero{min-height:380px}.card img{height:245px}section{padding:42px 5%}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="#home" style="text-decoration:none">ANMOL CLOTHING</a>
+  <nav><a href="#home">Home</a><a href="#shop">Shop</a><a href="#trending">Trending</a><a href="#contact">Contact</a></nav>
+  <button class="cart-button" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+</header>
+
+<main>
+<section class="hero" id="home"><div class="hero-content">
+  <div class="tag">STYLE • CONFIDENCE • YOU</div>
+  <h1>Find Your<br>Signature Style.</h1>
+  <p>Explore fresh women's fashion and trending looks at ANMOL CLOTHING.</p>
+  <a class="btn" href="#shop">SHOP COLLECTION</a>
+</div></section>
+
+<section id="shop">
+  <h2 class="title">Shop Our Collection</h2>
+  <p class="subtitle">Choose your favourite look. Add items to your cart and send your order directly through WhatsApp.</p>
+  <div class="filters">
+    <button class="filter active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter" onclick="filterProducts('dresses',this)">Dresses</button>
+    <button class="filter" onclick="filterProducts('tops',this)">Tops</button>
+    <button class="filter" onclick="filterProducts('trending',this)">Trending</button>
+  </div>
+  <div class="products" id="products"></div>
+  <p class="small" style="text-align:center;margin-top:20px">Demo products and prices: replace these with your actual stock and prices before publishing.</p>
+</section>
+
+<section class="banner" id="trending">
+  <h2 class="title">Trending Now</h2>
+  <p>New looks, timeless confidence. Message us to ask about sizes, colours and availability.</p>
+  <a class="btn" target="_blank" rel="noopener" href="https://wa.me/918650044978?text=Hello%20ANMOL%20CLOTHING%2C%20please%20share%20your%20latest%20collection.">ASK FOR LATEST COLLECTION</a>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="title">Contact Us</h2>
+  <p>Need help with sizing or an order? We are one WhatsApp message away.</p>
+  <a class="btn" target="_blank" rel="noopener" href="https://wa.me/918650044978?text=Hello%20ANMOL%20CLOTHING%2C%20I%20have%20a%20question.">CHAT ON WHATSAPP</a>
+  <p>WhatsApp: +91 86500 44978</p>
+</section>
+</main>
+<footer>© 2026 ANMOL CLOTHING · All rights reserved</footer>
+
+<div class="drawer" id="drawer" onclick="if(event.target===this)closeCart()">
+  <div class="panel">
+    <div class="panel-head"><h2>Your Shopping Cart</h2><button class="close" onclick="closeCart()">×</button></div>
+    <div id="cartItems"></div>
+    <h3 id="total">Total: ₹0</h3>
+    <button class="checkout" onclick="checkout()">ORDER CART ON WHATSAPP</button>
+    <p class="small">This sends your selected items and total to the shop on WhatsApp. Payment and delivery are arranged directly with the seller.</p>
+  </div>
+</div>
+
+<script>
+const WHATSAPP='918650044978';
+const items=[
+{id:1,name:'Elegant Floral Dress',price:799,category:'dresses',image:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=85',desc:'A graceful look for special days.'},
+{id:2,name:'Everyday Fashion Top',price:499,category:'tops',image:'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&q=85',desc:'An easy style for everyday wear.'},
+{id:3,name:'Trending Chic Outfit',price:999,category:'trending',image:'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=85',desc:'A standout look for your wardrobe.'},
+{id:4,name:'Classic Summer Dress',price:899,category:'dresses',image:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=85',desc:'A fresh and versatile style.'}
+];
+let cart={};
+function renderProducts(list=items){document.getElementById('products').innerHTML=list.map(p=>`<article class="card"><img src="${p.image}" alt="${p.name}"><div class="details"><h3>${p.name}</h3><div class="price">₹${p.price}</div><p class="desc">${p.desc}</p><div class="actions"><button class="add" onclick="addToCart(${p.id})">ADD TO CART</button><button class="buy" onclick="buyNow(${p.id})">BUY NOW</button></div></div></article>`).join('')}
+function filterProducts(cat,btn){document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderProducts(cat==='all'?items:items.filter(p=>p.category===cat))}
+function addToCart(id){cart[id]=(cart[id]||0)+1;updateCart();openCart()}
+function updateCart(){let count=Object.values(cart).reduce((a,b)=>a+b,0);document.getElementById('cartCount').textContent=count;let chosen=items.filter(p=>cart[p.id]);document.getElementById('cartItems').innerHTML=chosen.length?chosen.map(p=>`<div class="cart-row"><div><b>${p.name}</b><br>₹${p.price} × ${cart[p.id]}<div class="qty"><button onclick="changeQty(${p.id},-1)">−</button> ${cart[p.id]} <button onclick="changeQty(${p.id},1)">+</button></div></div><b>₹${p.price*cart[p.id]}</b></div>`).join(''):'<p>Your cart is empty.</p>';let total=chosen.reduce((s,p)=>s+p.price*cart[p.id],0);document.getElementById('total').textContent='Total: ₹'+total}
+function changeQty(id,n){cart[id]=(cart[id]||0)+n;if(cart[id]<=0)delete cart[id];updateCart()}
+function openCart(){document.getElementById('drawer').classList.add('open');updateCart()}
+function closeCart(){document.getElementById('drawer').classList.remove('open')}
+function messageFor(list){return 'Hello ANMOL CLOTHING! I would like to order:%0A'+list.map(p=>`${p.name} - ₹${p.price}${p.qty?' x '+p.qty:''}`).join('%0A')+'%0APlease confirm size, colour, availability and delivery details.'}
+function buyNow(id){let p=items.find(x=>x.id===id);window.open('https://wa.me/'+WHATSAPP+'?text='+messageFor([p]),'_blank')}
+function checkout(){let chosen=items.filter(p=>cart[p.id]).map(p=>({...p,qty:cart[p.id]}));if(!chosen.length){alert('Your cart is empty. Add a product first.');return}let total=chosen.reduce((s,p)=>s+p.price*p.qty,0);let msg=messageFor(chosen)+'%0ATotal: ₹'+total;window.open('https://wa.me/'+WHATSAPP+'?text='+msg,'_blank')}
+renderProducts();updateCart();
+</script>
+</body>
+</html>
